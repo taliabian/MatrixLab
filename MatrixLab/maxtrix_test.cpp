@@ -3,7 +3,6 @@
  *
  * Matrix class testing.
  *
- * Zhang Ming, 2010-01 (revised 2010-12), Xi'an Jiaotong University.
  *****************************************************************************/
 
 #include <iostream>

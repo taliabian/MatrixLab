@@ -60,7 +60,6 @@
 
 using namespace std;
 
-
 namespace matrixlab
 {
 
@@ -77,7 +76,7 @@ namespace matrixlab
         ~Matrix();
 
         Matrix<Type>& operator=( const Matrix<Type> &A );
-        Matrix<Type>& operator=( const Type &x );/* */
+        Matrix<Type>& operator=( const Type &x );
 
         Type* operator[]( int i );
         const Type* operator[]( int i ) const;
