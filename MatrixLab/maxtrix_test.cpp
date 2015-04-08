@@ -23,13 +23,11 @@ const   int     N = 3;
 int main()
 {
 	Type x;
-
 	Matrix<Type> m1;
 	m1.resize( M, N );
 	x = 1.0;
 	m1 = x;
 	cout << "matrix m1 : " << m1 << endl;
-
 	x = 2.0;
 	Matrix<Type> m2( M, N, x );
 	cout << "matrix m2 : " << m2 << endl;

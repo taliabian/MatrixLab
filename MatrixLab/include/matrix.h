@@ -1,54 +1,13 @@
-/*
- * Copyright (c) 2008-2011 Zhang Ming (M. Zhang), zmjerry@163.com
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the
- * Free Software Foundation, either version 2 or any later version.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details. A copy of the GNU General Public License is available at:
- */
-
-
-/*****************************************************************************
- *                                 matrix.h
- *
- * Class template of matrix which is designed for basic linear algebra
- * operations such as:
- *              A + x    x + A    A += x    A1 + A2   A1 += A2
- *              A - x    x - A    A -= x    A1 - A2   A1 -= A2
- *              A * x    x * A    A *= x    A1 * A2
- *              A / x    x / A    A /= x
- *              mum,     min,     max       mean      swap
- *              eye,     diag,    trT       trH       norm
- *              trMult   multTr   elemMult  elemMultEq
- *              elemDivd elemDivdEq
- * These operators and functions can be applied to both real matrix and
- * complex matrix.
- *
- * The class also provides the basic math functions such as:
- *              cos    sin    tan    acos   asin   atan
- *              abs    exp    log    log10  sqrt   pow
- * This should include "matrixmath.h" file.
- *
- * When debugging, use #define BOUNDS_CHECK above your "#include matrix.h"
- * line. When done debugging, comment out #define BOUNDS_CHECK for better
- * performance.
- *
- * Zhang Ming, 2010-01 (revised 2010-12), Xi'an Jiaotong University.
- *****************************************************************************/
+/*!
+* \file matrix.h
+* \brief 概述 
+* 
+*详细概述 
+* 
+* \author 作者名字
+* \version 版本号(maj.min，主版本.分版本格式) 
+* \date 日期 
+*/
 
 
 #ifndef MATRIX_H
@@ -60,15 +19,20 @@
 
 using namespace std;
 
+/// \brief 命名空间的简单概述 
+/// 
+///命名空间的详细概述
 namespace matrixlab
 {
 
     template <typename Type>
+	/// \brief Ctext的doxygen测试
+	///
+	/// 作doxygen测试用
     class Matrix
     {
 
     public:
-
         Matrix();
         Matrix( const Matrix<Type> &A );
         Matrix( int rows, int columns, const Type &x = Type(0) );
@@ -81,7 +45,7 @@ namespace matrixlab
         Type* operator[]( int i );
         const Type* operator[]( int i ) const;
         Type& operator()( int row, int column );
-        const Type& operator()( int row, int column ) const;
+        const Type& operator()( int  row, int column ) const;
 
         operator Type*();
         operator const Type*() const;
@@ -107,13 +71,13 @@ namespace matrixlab
 
     private:
 
-        Type *pv0, *pv1;
+        Type *pv0;///< 矩阵'0'基指针
+        Type **prow0;///<矩阵'0'基行指针
+		Type **prow1;///<矩阵'1'基行指针
 
-        Type **prow0, **prow1;
-
-        int	 nRow;
-        int	 nColumn;
-        long nTotal;
+        int	 nRow;///< 矩阵行数
+        int	 nColumn;///< 矩阵列数
+        long nTotal;///< 矩阵总数
 
         void init( int rows, int columns );
         void copyFromArray( const Type *v );
@@ -218,7 +182,7 @@ namespace matrixlab
                                           const Matrix<Type>& );*/
 
 
-    #include "./include/matrix_impl.h"
+    #include "matrix_impl.h"
 
 }
 
