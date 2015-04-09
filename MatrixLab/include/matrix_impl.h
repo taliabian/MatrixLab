@@ -1,3 +1,11 @@
+/*!
+* \file matrix_impl.h
+* \brief Implementation for MatrixLab class
+* \author Talia
+* \version 1.0
+* \date 2015-04-09 
+*/
+
 /// \brief 矩阵初始化(pv0, prow0, prow1)
 /// \param rows 矩阵行数
 /// \param columns 矩阵列数
@@ -130,12 +138,8 @@ inline Matrix<Type>& Matrix<Type>::operator=( const Type &x )
 	return *this;
 }
 /// \brief 重载"[]",矩阵'0'基行数据访问. 
-///	such as:matrixA =
-///							 [1,  1, 1
-///		*matrixA[1]=>首地址  (2), 2, 2
-///							  3,  3, 3]
 /// \param x 行数
-/// \return 第i行的首地址
+/// \return 矩阵第i行的首地址
 template <typename Type>
 inline Type* Matrix<Type>::operator[]( int i )
 {
@@ -147,13 +151,9 @@ inline const Type* Matrix<Type>::operator[]( int i ) const
 	return prow0[i];
 }
 /// \brief 重载"()",矩阵'1'基数据访问. 
-///	such as:matrixA =
-///							 [1,  1, 1
-///		matrixA[2][1]=>      (2), 2, 2
-///							  3,  3, 3]
 /// \param row 行数
 /// \param column 列数
-/// \return 第i行第j列数据
+/// \return 矩阵第i行第j列数据
 template <typename Type>
 inline Type& Matrix<Type>::operator()( int row, int column )
 {
@@ -166,10 +166,6 @@ inline const Type& Matrix<Type>::operator()( int row, int column ) const
 	return  prow1[row][column];
 }
 /// \brief 重载"*",矩阵数据首地址访问. 
-///	such as: matrixA =
-///		    *matrixA=>	[1,  1, 1
-///						(2), 2, 2
-///						 3,  3, 3]
 /// \return 矩阵数据首地址pv0
 template <typename Type>
 inline Matrix<Type>::operator Type*()
@@ -271,12 +267,6 @@ void Matrix<Type>::setColumn( const vector<Type> &v, int column )
 		prow0[i][column] = v[i];
 }
 /// \brief 重载'+=', 矩阵各元素加系数
-/// such as :	 A = [ 1, 2, 3
-///					   2, 3, 4
-///					   3, 4, 5]
-///		A += 2:	 A =  [3, 4, 5
-///					   4, 5, 6
-///					   5, 6, 7]
 /// \param x 系数
 template <typename Type>
 Matrix<Type>& Matrix<Type>::operator+=( const Type &x )
@@ -293,12 +283,6 @@ Matrix<Type>& Matrix<Type>::operator+=( const Type &x )
 	return *this;
 }
 /// \brief 重载'+=', 矩阵A各元素加对应矩阵B各元素系数
-/// such as :	 A = [ 1, 2, 3		B = [1,	2, 3
-///					   2, 3, 4			 2, 3, 4
-///					   3, 4, 5]			 3, 4, 5]
-///		A += B:	 A =  [2, 4, 6
-///					   4, 6, 8
-///					   6, 8, 10]
 /// \param rhs 矩阵B
 template <typename Type>
 Matrix<Type>& Matrix<Type>::operator+=( const Matrix<Type> &rhs )
@@ -320,12 +304,6 @@ Matrix<Type>& Matrix<Type>::operator+=( const Matrix<Type> &rhs )
 	return *this;
 }
 /// \brief 重载'-=', 矩阵各元素减系数
-/// such as :	 A = [ 1, 2, 3
-///					   2, 3, 4
-///					   3, 4, 5]
-///		A -= 1:	 A =  [0, 1, 2
-///					   1, 2, 3
-///					   2, 3, 4]
 /// \param x 系数
 template <typename Type>
 Matrix<Type>& Matrix<Type>::operator-=( const Type &x )
@@ -343,12 +321,6 @@ Matrix<Type>& Matrix<Type>::operator-=( const Type &x )
 	return *this;
 }
 /// \brief 重载'-=', 矩阵A各元素减对应矩阵B各元素系数
-/// such as :	 A = [ 1, 2, 3		B = [1,	2, 3
-///					   2, 3, 4			 2, 3, 4
-///					   3, 4, 5]			 3, 4, 5]
-///		A -= B:	 A =  [0, 0, 0
-///					   0, 0, 0
-///					   0, 0, 0]
 /// \param rhs 矩阵B
 template <typename Type>
 Matrix<Type>& Matrix<Type>::operator-=( const Matrix<Type> &rhs )
@@ -369,12 +341,6 @@ Matrix<Type>& Matrix<Type>::operator-=( const Matrix<Type> &rhs )
 	return *this;
 }
 /// \brief 重载'*=', 矩阵各元素乘系数
-/// such as :	 A = [ 1, 2, 3
-///					   2, 3, 4
-///					   3, 4, 5]
-///		A *= 2:	 A =  [2, 4, 6
-///					   4, 6, 8
-///					   6, 8, 10]
 /// \param x 系数
 template <typename Type>
 Matrix<Type>& Matrix<Type>::operator*=( const Type &x )
@@ -392,12 +358,6 @@ Matrix<Type>& Matrix<Type>::operator*=( const Type &x )
 	return *this;
 }
 /// \brief 重载'*=', 矩阵A各元素乘对应矩阵B各元素系数
-/// such as :	 A = [ 1, 2, 3		B = [1,	2, 3
-///					   2, 3, 4			 2, 3, 4
-///					   3, 4, 5]			 3, 4, 5]
-///		A *= B:	 A =  [1, 4, 9
-///					   4, 9, 16
-///					   9, 16, 25]
 /// \param rhs 矩阵B
 template <typename Type>
 Matrix<Type>& Matrix<Type>::operator*=( const Matrix<Type> &rhs )
@@ -418,12 +378,6 @@ Matrix<Type>& Matrix<Type>::operator*=( const Matrix<Type> &rhs )
 	return *this;
 }
 /// \brief 重载'/=', 矩阵各元素除系数
-/// such as :	 A = [ 1, 2, 3
-///					   2, 3, 4
-///					   3, 4, 5]
-///		A /= 2:	 A =  [0.5, 1, 1.5
-///					   1, 1.5, 2
-///					   1.5, 2, 2.5]
 /// \param x 系数
 template <typename Type>
 Matrix<Type>& Matrix<Type>::operator/=( const Type &x )
@@ -441,12 +395,6 @@ Matrix<Type>& Matrix<Type>::operator/=( const Type &x )
 	return *this;
 }
 /// \brief 重载'/=', 矩阵A各元素除对应矩阵B各元素系数
-/// such as :	 A = [ 1, 2, 3		B = [1,	2, 3
-///					   2, 3, 4			 2, 3, 4
-///					   3, 4, 5]			 3, 4, 5]
-///		A /= B:	 A =  [1, 1, 1
-///					   1, 1, 1
-///					   1, 1, 1]
 /// \param rhs 矩阵B
 template <typename Type>
 Matrix<Type>& Matrix<Type>::operator/=( const Matrix<Type> &rhs )
@@ -467,11 +415,7 @@ Matrix<Type>& Matrix<Type>::operator/=( const Matrix<Type> &rhs )
 
 	return *this;
 }
-/// \brief 重载'<<', 输出矩阵A各元素
-/// such as :	size: 3 by 3 
-///				1, 2, 3		
-///				2, 3, 4		
-///				3, 4, 5			 
+/// \brief 重载'<<', 输出矩阵A各元素			 
 /// \param A 矩阵A
 template <typename Type>
 ostream& operator<<( ostream &out, const Matrix<Type> &A )
@@ -489,11 +433,7 @@ ostream& operator<<( ostream &out, const Matrix<Type> &A )
 
 	return out;
 }
-/// \brief 重载'<<', 输出向量v各元素
-/// such as :	size: 3 by 1 
-///				1	
-///				2		
-///				3		 
+/// \brief 重载'<<', 输出向量v各元素		 
 /// \param v 向量v
 template<typename Type>
 ostream& operator<<( ostream &out, const vector<Type> &v )
@@ -507,11 +447,7 @@ ostream& operator<<( ostream &out, const vector<Type> &v )
 	}
 	return out;
 }
-/// \brief 重载'>>', 输入矩阵A各元素
-/// such as :	3 3 
-///				1 1 1	
-///				2 2 2		
-///				3 3 3		 
+/// \brief 重载'>>', 输入矩阵A各元素	 
 /// \param A 输入矩阵
 template <typename Type>
 istream& operator>>( istream &in, Matrix<Type> &A )
@@ -530,13 +466,7 @@ istream& operator>>( istream &in, Matrix<Type> &A )
 	}
 	return in;
 }
-/// \brief 重载'-', 矩阵A各元素取反
-/// such as :	 A = [ 1, 2, 3		
-///					   2, 3, 4			
-///					   3, 4, 5]			
-///				 -A = [ -1, -2, -3		
-///					    -2, -3, -4			
-///					    -3, -4, -5]		
+/// \brief 重载'-', 矩阵A各元素取反	
 /// \param A 矩阵A
 template<typename Type>
 Matrix<Type> operator-( const Matrix<Type> &A )
@@ -552,12 +482,6 @@ Matrix<Type> operator-( const Matrix<Type> &A )
 	return tmp;
 }
 /// \brief 重载'+', 矩阵A各元素加系数
-/// such as :	A = [ 1, 2, 3		
-///					   2, 3, 4		
-///					   3, 4, 5]		
-///		A+2:	      [3, 4, 5
-///					   4, 5, 6
-///					   5, 6, 7]
 /// \param A 矩阵A
 /// \param x 系数
 template<typename Type>
@@ -567,12 +491,6 @@ inline Matrix<Type> operator+( const Matrix<Type> &A, const Type &x )
 	return tmp += x;
 }
 /// \brief 重载'+', 系数加矩阵A各元素
-/// such as :	A = [ 1, 2, 3		
-///					   2, 3, 4		
-///					   3, 4, 5]		
-///		2+A:	      [3, 4, 5
-///					   4, 5, 6
-///					   5, 6, 7]
 /// \param A 矩阵A
 /// \param x 系数
 template<typename Type>
@@ -581,12 +499,6 @@ inline Matrix<Type> operator+( const Type &x, const Matrix<Type> &A )
 	return A + x;
 }
 /// \brief 重载'+', 矩阵A1各元素加对应矩阵A2各元素系数
-/// such as :	 A1 = [ 1, 2, 3		A2 = [1,2, 3
-///					    2, 3, 4			  2, 3, 4
-///					    3, 4, 5]		  3, 4, 5]
-///		A1 + A2:	  [ 2, 4, 6
-///					    4, 6, 8
-///					    6, 8, 10]
 /// \param A1 矩阵A1
 /// \param A2 矩阵A2
 template<typename Type>
@@ -596,12 +508,6 @@ inline Matrix<Type> operator+( const Matrix<Type> &A1, const Matrix<Type> &A2 )
 	return tmp += A2;
 }
 /// \brief 重载'-', 矩阵A各元素减系数
-/// such as :	A = [ 1, 2, 3		
-///					   2, 3, 4		
-///					   3, 4, 5]		
-///		A-1:	      [0, 1, 2
-///					   1, 2, 3
-///					   2, 3, 4]
 /// \param A 矩阵A
 /// \param x 系数
 template<typename Type>
@@ -611,12 +517,6 @@ inline Matrix<Type> operator-( const Matrix<Type> &A, const Type &x )
 	return tmp -= x;
 }
 /// \brief 重载'-', 系数减矩阵A各元素
-/// such as :	A = [ 1, 2, 3		
-///					   2, 3, 4		
-///					   3, 4, 5]		
-///		1-A:	      [ 0, -1, -2
-///					   -1, -2, -3
-///					   -2, -3, -4]
 /// \param A 矩阵A
 /// \param x 系数
 template<typename Type>
@@ -626,12 +526,6 @@ inline Matrix<Type> operator-( const Type &x, const Matrix<Type> &A )
 	return -tmp += x;
 }
 /// \brief 重载'-', 矩阵A1各元素减对应矩阵A2各元素系数
-/// such as :	 A1 = [ 1, 2, 3		A2 = [1,2, 3
-///					    2, 3, 4			  2, 3, 4
-///					    3, 4, 5]		  3, 4, 5]
-///		A1 - A2:	  [ 0, 0, 0
-///					    0, 0, 0
-///					    0, 0, 0]
 /// \param A1 矩阵A1
 /// \param A2 矩阵A2
 template<typename Type>
@@ -641,12 +535,6 @@ inline Matrix<Type> operator-( const Matrix<Type> &A1, const Matrix<Type> &A2 )
 	return tmp -= A2;
 }
 /// \brief 重载'*', 矩阵各元素乘系数
-/// such as :	 A =  [1, 2, 3
-///					   2, 3, 4
-///					   3, 4, 5]
-///		A * 2:	      [2, 4, 6
-///					   4, 6, 8
-///					   6, 8, 10]
 /// \param A 矩阵
 /// \param x 系数
 template <typename Type>
@@ -656,12 +544,6 @@ inline Matrix<Type> operator*( const Matrix<Type> &A, const Type &x )
 	return tmp *= x;
 }
 /// \brief 重载'*', 系数乘矩阵各元素
-/// such as :	 A =  [1, 2, 3
-///					   2, 3, 4
-///					   3, 4, 5]
-///		2 * A:	      [2, 4, 6
-///					   4, 6, 8
-///					   6, 8, 10]
 /// \param A 矩阵
 /// \param x 系数
 template <typename Type>
@@ -670,12 +552,6 @@ inline Matrix<Type> operator*( const Type &x, const Matrix<Type> &A )
 	return A * x;
 }
 /// \brief 重载'*', 矩阵A1各元素乘矩阵A2
-/// such as :	 A1 = [1, 2, 3		A2 = [1, 2, 3
-///					   2, 3, 4			  2, 3, 4
-///					   3, 4, 5]			  3, 4, 5]
-///		A1 .* A2:	  [14, 20, 26
-///					   20, 26, 38
-///					   26, 38, 50]
 /// \param A1 矩阵A1
 /// \param A1 矩阵A2
 template <typename Type>
@@ -690,10 +566,6 @@ Matrix<Type> operator*( const Matrix<Type> &A1, const Matrix<Type> &A2 )
 	return tmp;
 }
 /// \brief 重载'*', 矩阵A各元素乘向量v
-/// such as :	 A = [1, 2, 3		v = [1, 2, 3]T
-///					   2, 3, 4			  
-///					   3, 4, 5]			 
-///		A1 .* v:	  [14, 20, 26]T
 /// \param A 矩阵 
 /// \param v 向量 
 template <typename Type>
@@ -709,12 +581,6 @@ vector<Type> operator*( const Matrix<Type> &A, const vector<Type> &b )
 	return tmp;
 }
 /// \brief 重载'/', 矩阵各元素除系数
-/// such as :	 A =  [1, 2, 3
-///					   2, 3, 4
-///					   3, 4, 5]
-///		A / 2:	      [0.5, 1, 1.5
-///					   1, 1.5, 2
-///					   1.5, 2, 2.5]
 /// \param A 矩阵
 /// \param x 系数
 template <typename Type>
@@ -724,8 +590,6 @@ inline Matrix<Type> operator/( const Matrix<Type> &A, const Type &x )
 	return tmp /= x;
 }
 /// \brief 重载'/', 向量各元素除系数
-/// such as :	 v =  [1,2,3]
-///		v / 2:	      [0.5, 1, 1.5]
 /// \param v 向量
 /// \param x 系数
 template<typename Type>
@@ -740,12 +604,6 @@ vector<Type> operator/( const vector<Type> &v, const Type &x )
 	return tmp;
 }
 /// \brief 重载'/', 系数除矩阵各元素
-/// such as :	 A =  [1, 2, 3
-///					   2, 3, 4
-///					   3, 4, 5]
-///		15 / A:	      [15, 7.5, 5
-///					   7.5, 5, 3.75
-///					   5, 3.75, 3]
 /// \param A 矩阵
 /// \param x 系数
 template <typename Type>
@@ -762,12 +620,6 @@ Matrix<Type> operator/( const Type &x, const Matrix<Type> &A )
 	return tmp;
 }
 /// \brief 重载'*', 矩阵A各元素乘矩阵B
-/// such as :	 A  = [1, 2, 3		B  = [1, 2, 3
-///					   2, 3, 4			  2, 3, 4
-///					   3, 4, 5]			  3, 4, 5]
-///		C = A.* B:	  [14, 20, 26
-///					   20, 26, 38
-///					   26, 38, 50]
 /// \param A 矩阵
 /// \param B 矩阵
 /// \param C 结果矩阵
@@ -802,10 +654,6 @@ Matrix<Type>& optMult( const Matrix<Type> &A, const Matrix<Type> &B,
     return C;
 }
 /// \brief 重载'*', 矩阵A各元素乘向量b
-/// such as :	 A = [1, 2, 3		b = [1, 2, 3]T
-///					   2, 3, 4			  
-///					   3, 4, 5]			 
-///		A .* b:	  [14, 20, 26]T
 /// \param A 矩阵 
 /// \param b 向量 
 /// \param c 
@@ -837,35 +685,47 @@ vector<Type>& optMult( const Matrix<Type> &A, const vector<Type> &b,
     }
     return c;
 }
-
-
+/// \brief 矩阵A1乘矩阵A2
+/// \param A1 矩阵
+/// \param A2 矩阵
+/// \return  结果矩阵
 template<typename Type>
 inline Matrix<Type> elemMult( const Matrix<Type> &A1, const Matrix<Type> &A2 )
 {
 	Matrix<Type> tmp( A1 );
 	return tmp *= A2;
 }
-
+/// \brief 矩阵A1乘矩阵A2
+/// \param A1 矩阵
+/// \param A2 矩阵
+/// \return  A1结果矩阵
 template <typename Type>
 inline Matrix<Type>& elemMultEq( Matrix<Type> &A1, const Matrix<Type> &A2 )
 {
     return A1 *= A2;
 }
-
-
+/// \brief 矩阵A1各元素除对应矩阵A2各元素系数
+/// \param A1 矩阵
+/// \param A2 矩阵
+/// \return A1/A2
 template <typename Type>
 inline Matrix<Type> elemDivd( const Matrix<Type> &A1, const Matrix<Type> &A2 )
 {
 	Matrix<Type> tmp( A1 );
 	return tmp /= A2;
 }
+/// \brief 矩阵A1各元素除对应矩阵A2各元素系数
+/// \param A1 矩阵
+/// \param A2 矩阵
+/// \return A1
 template <typename Type>
 inline Matrix<Type>& elemDivdEq( Matrix<Type> &A1, const Matrix<Type> &A2 )
 {
     return A1 /= A2;
 }
-
-
+/// \brief 实数矩阵A转置
+/// \param A 实矩阵
+/// \return trT(A)
 template <typename Type>
 Matrix<Type> trT( const Matrix<Type> &A )
 {
@@ -879,8 +739,9 @@ Matrix<Type> trT( const Matrix<Type> &A )
 
 	return tmp;
 }
-
-
+/// \brief 复数矩阵A转置
+/// \param A 复数矩阵
+/// \return trH(A)
 template <typename Type>
 Matrix<Type> trH( const Matrix<Type> &A )
 {
@@ -894,8 +755,10 @@ Matrix<Type> trH( const Matrix<Type> &A )
 
 	return tmp;
 }
-
-
+/// \brief A1的转置点乘A2:(A1^T).*A2
+/// \param A1 矩阵
+/// \param A2 矩阵
+/// \return (A1^T).*A2
 template <typename Type>
 Matrix<Type> trMult( const Matrix<Type> &A1, const Matrix<Type> &A2 )
 {
@@ -912,7 +775,10 @@ Matrix<Type> trMult( const Matrix<Type> &A1, const Matrix<Type> &A2 )
 
 	return tmp;
 }
-
+/// \brief A的转置点乘v:(A^T).*v
+/// \param A 矩阵
+/// \param v 向量
+/// \return (A^T).*v
 template <typename Type>
 vector<Type> trMult( const Matrix<Type> &A, const vector<Type> &v )
 {
@@ -926,7 +792,10 @@ vector<Type> trMult( const Matrix<Type> &A, const vector<Type> &v )
 
 	return tmp;
 }
-
+/// \brief A1点乘A2的转置:A1.*(A2^T)
+/// \param A1 矩阵
+/// \param A2 矩阵
+/// \return A1.*(A2^T)
 template <typename Type>
 Matrix<Type> multTr( const Matrix<Type> &A1, const Matrix<Type> &A2 )
 {
@@ -943,8 +812,10 @@ Matrix<Type> multTr( const Matrix<Type> &A1, const Matrix<Type> &A2 )
 
 	return tmp;
 }
-
-/*
+/// \brief 向量a点乘向量b的转置:a.*(b^T)
+/// \param a 向量
+/// \param b 向量
+/// \return a.*(b^T)
 template <typename Type>
 Matrix<Type> multTr( const vector<Type> &a, const vector<Type> &b )
 {
@@ -958,8 +829,23 @@ Matrix<Type> multTr( const vector<Type> &a, const vector<Type> &b )
 
 	return tmp;
 }
-
-*/
+/// \brief 向量a的转置点乘向量b:(a^T).*b
+/// \param a 向量
+/// \param b 向量
+/// \return (a^T).*b
+template<typename Type>
+Type trMult( const vector<Type> &a, const vector<Type> &b )
+{
+	Type tmp = 0;
+	int rows = a.size();
+	for( int i = 0; i<rows; i++)
+		tmp += a[i]*b[i];
+	return tmp;
+}
+/// \brief 复数矩阵A1的共轭转置点乘复数矩阵A2:(A1^H).*A2
+/// \param A1 复数矩阵
+/// \param A2 复数矩阵
+/// \return (A1^H).*A2
 template <typename Type>
 Matrix<complex<Type> > trMult( const Matrix<complex<Type> > &A1,
                                const Matrix<complex<Type> > &A2 )
@@ -977,7 +863,10 @@ Matrix<complex<Type> > trMult( const Matrix<complex<Type> > &A1,
 
 	return tmp;
 }
-/*
+/// \brief 复数矩阵A的共轭转置点乘复数向量v:(A^H).*v
+/// \param A 复数矩阵
+/// \param v 复数向量
+/// \return (A^H).*v
 template <typename Type>
 vector<complex<Type> > trMult( const Matrix<complex<Type> > &A, const vector<complex<Type> > &v )
 {
@@ -992,8 +881,10 @@ vector<complex<Type> > trMult( const Matrix<complex<Type> > &A, const vector<com
 
 	return tmp;
 }
-*/
-
+/// \brief 复数矩阵A1点乘复数矩阵A2的共轭转置:A1.*(A2^H)
+/// \param A1 复数矩阵
+/// \param A2 复数矩阵
+/// \return A1.*(A2^H)
 template <typename Type>
 Matrix<complex<Type> > multTr( const Matrix<complex<Type> > &A1,
                                const Matrix<complex<Type> > &A2 )
@@ -1011,9 +902,10 @@ Matrix<complex<Type> > multTr( const Matrix<complex<Type> > &A1,
 
 	return tmp;
 }
-
-
-/*
+/// \brief 复数向量a点乘复数向量b的共轭转置:a.*(b^H)
+/// \param a 复数向量
+/// \param b 复数向量
+/// \return a.*(b^H)
 template <typename Type>
 Matrix<complex<Type> > multTr( const vector<complex<Type> > &a,
                                const vector<complex<Type> > &b )
@@ -1028,8 +920,24 @@ Matrix<complex<Type> > multTr( const vector<complex<Type> > &a,
 
 	return tmp;
 }
+/// \brief 复数向量a的共轭转置点乘复数向量b:(a^H).*b
+/// \param a 复数向量
+/// \param b 复数向量
+/// \return (a^H).*b
+template <typename Type>
+complex<Type>  trMult( const vector<complex<Type> > &a, const vector<complex<Type> > &b )
+{
+	int rows = a.dim();
 
+	complex<Type> tmp;
+	for( int i=0; i<rows; ++i )
+		for( int j=0; j<columns; ++j )
+			tmp += conj(a[i])*b[j];
 
+	return tmp;
+}
+/// \brief 生成单位方阵
+/// \param x 维数
 template <typename Type>
 Matrix<Type> eye( int N, const Type &x )
 {
@@ -1039,9 +947,8 @@ Matrix<Type> eye( int N, const Type &x )
 
 	return tmp;
 }
-*/
-
-
+/// \brief 生成矩阵A对角元素
+/// \param A 矩阵
 template <typename Type>
 vector<Type> diag( const Matrix<Type> &A )
 {
@@ -1055,8 +962,8 @@ vector<Type> diag( const Matrix<Type> &A )
 
 	return tmp;
 }
-
-
+/// \brief 给定对角元素生成矩阵A
+/// \param d 对角元素向量
 template <typename Type>
 Matrix<Type> diag( const vector<Type> &d )
 {
@@ -1068,8 +975,8 @@ Matrix<Type> diag( const vector<Type> &d )
 
 	return tmp;
 }
-
-/*
+/// \brief 矩阵的Frobenius范数 = sqrt(sum(A(i,j)*A(i,j))) 
+/// \param A 矩阵
 template <typename Type>
 Type norm( const Matrix<Type> &A )
 {
@@ -1083,36 +990,36 @@ Type norm( const Matrix<Type> &A )
 
 	return sqrt(sum);
 }
-
+/// \brief 复数矩阵的Frobenius范数 = sqrt(sum(A(i,j)*conj(A(i,j)))) 
+/// \param A 矩阵
 template <typename Type>
 Type norm( const Matrix<complex<Type> > &A )
 {
 	int m = A.rows();
 	int n = A.cols();
-
+	complex<Type> tmp1,tmp2,tmp3;
 	Type sum = 0;
 	for( int i=1; i<=m; ++i )
-		for( int j=1; j<=n; ++j )
-            sum += norm(A(i,j));
+		for( int j=1; j<=n; ++j)
+			sum += norm(A(i,j));//c++ complex function
 
 	return sqrt(sum);
 }
-
-
+/// \brief 交换矩阵lhs和rhs的数据
+/// \param lhs 矩阵
+/// \param rhs 矩阵
 template <typename Type> void swap( Matrix<Type> &lhs, Matrix<Type> &rhs )
 {
     int m = lhs.rows();
 	int n = lhs.cols();
 
-	assert( m == rhs.rows() );
-	assert( n == rhs.cols() );
-
 	for( int i=1; i<=m; ++i )
 		for( int j=1; j<=n; ++j )
             swap( lhs(i,j), rhs(i,j) );
 }
-
-*/
+/// \brief 矩阵各列元素求和
+/// \param A 矩阵
+/// \return 向量
 template <typename Type>
 vector<Type> sum( const Matrix<Type> &A )
 {
@@ -1126,14 +1033,15 @@ vector<Type> sum( const Matrix<Type> &A )
 
 	return sum;
 }
-
-
+/// \brief 矩阵各列元素最小值
+/// \param A 矩阵
+/// \return 向量
 template <typename Type>
 vector<Type> min( const Matrix<Type> &A )
 {
 	int m = A.rows();
 	int n = A.cols();
-	vector<Type> sum(n);
+	vector<Type> Min(n);
 
 	for( int j=1; j<=n; ++j )
 	{
@@ -1141,19 +1049,21 @@ vector<Type> min( const Matrix<Type> &A )
         for( int i=2; i<=m; ++i )
             if( tmp > A(i,j) )
                 tmp = A(i,j);
-        sum.at(j-1) = tmp;
+        Min.at(j-1) = tmp;
 	}
 
-	return sum;
+	return Min;
 }
 
-
+/// \brief 矩阵各列元素最大值
+/// \param A 矩阵
+/// \return 向量
 template <typename Type>
 vector<Type> max( const Matrix<Type> &A )
 {
 	int m = A.rows();
 	int n = A.cols();
-	vector<Type> sum(n);
+	vector<Type> Max(n);
 
 	for( int j=1; j<=n; ++j )
 	{
@@ -1161,20 +1071,24 @@ vector<Type> max( const Matrix<Type> &A )
         for( int i=2; i<=m; ++i )
             if( tmp < A(i,j) )
                 tmp = A(i,j);
-        sum.at(j-1) = tmp;
+        Max.at(j-1) = tmp;
 	}
 
-	return sum;
+	return Max;
 }
 
-
+/// \brief 矩阵各列元素平均值
+/// \param A 矩阵
+/// \return 向量
 template <typename Type>
 inline vector<Type> mean( const Matrix<Type> &A )
 {
 	return sum(A) / Type(A.rows());
 }
 
-
+/// \brief 由实矩阵构造复数矩阵，2==>2+0*i
+/// \param rA 矩阵
+/// \return 复数矩阵
 template <typename Type>
 Matrix<complex<Type> > complexMatrix( const Matrix<Type> &rA )
 {
@@ -1188,16 +1102,16 @@ Matrix<complex<Type> > complexMatrix( const Matrix<Type> &rA )
 
     return cA;
 }
-/*
+/// \brief 由实矩阵mR和mI构造复数矩阵，mR+mI*i
+/// \param rR 矩阵
+/// \param rI 矩阵
+/// \return 复数矩阵
 template <typename Type>
 Matrix<complex<Type> > complexMatrix( const Matrix<Type> &mR,
                                       const Matrix<Type> &mI )
 {
 	int rows = mR.rows();
 	int columns = mR.cols();
-
-	assert( rows == mI.rows() );
-	assert( columns == mI.cols() );
 
     Matrix<complex<Type> > cA( rows, columns );
     for( int i=0; i<rows; ++i )
@@ -1206,7 +1120,9 @@ Matrix<complex<Type> > complexMatrix( const Matrix<Type> &mR,
 
     return cA;
 }
-*/
+/// \brief 复数矩阵的模矩阵
+/// \param A 矩阵
+/// \return 实矩阵
 template <typename Type>
 Matrix<Type> abs( const Matrix<complex<Type> > &A )
 {
@@ -1221,7 +1137,9 @@ Matrix<Type> abs( const Matrix<complex<Type> > &A )
     return tmp;
 }
 
-
+/// \brief 复数矩阵的极坐标角度矩阵
+/// \param A 矩阵
+/// \return 实矩阵
 template <typename Type>
 Matrix<Type> arg( const Matrix<complex<Type> > &A )
 {
@@ -1236,7 +1154,9 @@ Matrix<Type> arg( const Matrix<complex<Type> > &A )
     return tmp;
 }
 
-
+/// \brief 复数矩阵的实部矩阵
+/// \param A 矩阵
+/// \return 实矩阵
 template <typename Type>
 Matrix<Type> real( const Matrix<complex<Type> > &A )
 {
@@ -1251,7 +1171,9 @@ Matrix<Type> real( const Matrix<complex<Type> > &A )
     return tmp;
 }
 
-
+/// \brief 复数矩阵的虚部矩阵
+/// \param A 矩阵
+/// \return 实矩阵
 template <typename Type>
 Matrix<Type> imag( const Matrix<complex<Type> > &A )
 {

@@ -1,14 +1,10 @@
 /*!
-* \file matrix.h
-* \brief 概述 
-* 
-*详细概述 
-* 
-* \author 作者名字
-* \version 版本号(maj.min，主版本.分版本格式) 
-* \date 日期 
+* \file  matrix.h
+* \brief Class template of matrix which is designed for basic linear algebra 
+* \author Talia
+* \version 1.0
+* \date 2015-04-09 
 */
-
 
 #ifndef MATRIX_H
 #define MATRIX_H
@@ -19,29 +15,24 @@
 
 using namespace std;
 
-/// \brief 命名空间的简单概述 
-/// 
-///命名空间的详细概述
 namespace matrixlab
 {
 
     template <typename Type>
-	/// \brief Ctext的doxygen测试
-	///
-	/// 作doxygen测试用
     class Matrix
     {
 
     public:
+		/// constructor
         Matrix();
         Matrix( const Matrix<Type> &A );
         Matrix( int rows, int columns, const Type &x = Type(0) );
         Matrix( int rows, int columns, const Type *v );
         ~Matrix();
-
+		/// assignment
         Matrix<Type>& operator=( const Matrix<Type> &A );
         Matrix<Type>& operator=( const Type &x );
-
+		/// operator
         Type* operator[]( int i );
         const Type* operator[]( int i ) const;
         Type& operator()( int row, int column );
@@ -49,7 +40,7 @@ namespace matrixlab
 
         operator Type*();
         operator const Type*() const;
-
+		/// others caculate
         long size() const;
         int dim( int dimension ) const;
         int rows() const;
@@ -59,7 +50,7 @@ namespace matrixlab
         vector<Type> getColumn( int column ) const;
 		void setRow( const vector<Type> &v, int row );
         void setColumn( const vector<Type> &v, int column );
-
+		// operator
         Matrix<Type>& operator+=( const Type& );
         Matrix<Type>& operator+=( const Matrix<Type>& );
         Matrix<Type>& operator-=( const Type& );
@@ -85,7 +76,8 @@ namespace matrixlab
         void destroy();
 
     };
-
+	#include "matrix_impl.h"
+	// operator
     template<typename Type>
     ostream& operator<<( ostream&, const Matrix<Type>& );
 	template<typename Type>
@@ -145,28 +137,28 @@ namespace matrixlab
     vector<Type> trMult( const Matrix<Type>&, const vector<Type>& );
     template<typename Type>
     Matrix<Type> multTr( const Matrix<Type>&, const Matrix<Type>& );
- /* template<typename Type>
-    Matrix<Type> multTr( const vector<Type>&, const vector<Type>& );*/
     template<typename Type>
-    Matrix<complex<Type> > trMult( const Matrix<complex<Type> >&,
-                                   const Matrix<complex<Type> >& );
-  /*  template<typename Type>
-    vector<complex<Type> > trMult( const Matrix<complex<Type> >&,
-                                   const vector<complex<Type> >& );*/
+    Matrix<Type> multTr( const vector<Type>&, const vector<Type>& );
+	template<typename Type>
+	Type trMult( const vector<Type>&, const vector<Type>& );
     template<typename Type>
-    Matrix<complex<Type> > multTr( const Matrix<complex<Type> >&,
-                                   const Matrix<complex<Type> >& );
- /*   template<typename Type>
-    Matrix<complex<Type> > multTr( const vector<complex<Type> >&,
-                                   const vector<complex<Type> >& );
-
-    template<typename Type> Matrix<Type> eye( int, const Type& );*/
+    Matrix<complex<Type> > trMult( const Matrix<complex<Type> >&, const Matrix<complex<Type> >& );
+    template<typename Type>
+    vector<complex<Type> > trMult( const Matrix<complex<Type> >&, const vector<complex<Type> >& );
+    template<typename Type>
+    Matrix<complex<Type> > multTr( const Matrix<complex<Type> >&, const Matrix<complex<Type> >& );
+    template<typename Type>
+    Matrix<complex<Type> > multTr( const vector<complex<Type> >&, const vector<complex<Type> >& );
+	template<typename Type>
+    complex<Type>          trMult( const vector<complex<Type> >&, const vector<complex<Type> >& );
+    
+	template<typename Type> Matrix<Type> eye( int, const Type& );
     template<typename Type> vector<Type> diag( const Matrix<Type>& );
-     template<typename Type> Matrix<Type> diag( const vector<Type>& );
+    template<typename Type> Matrix<Type> diag( const vector<Type>& );
 
-   /*template<typename Type> Type norm( const Matrix<Type>& );
+    template<typename Type> Type norm( const Matrix<Type>& );
     template<typename Type> Type norm( const Matrix<complex<Type> >& );
-    template<typename Type> void swap( Matrix<Type>&, Matrix<Type>& );*/
+    template<typename Type> void swap( Matrix<Type>&, Matrix<Type>& );
     template<typename Type> vector<Type> sum( const Matrix<Type>& );
     template<typename Type> vector<Type> min( const Matrix<Type>& );
     template<typename Type> vector<Type> max( const Matrix<Type>& );
@@ -177,14 +169,8 @@ namespace matrixlab
     template<typename Type> Matrix<Type> imag( const Matrix<complex<Type> >& );
     template<typename Type>
     Matrix<complex<Type> > complexMatrix( const Matrix<Type>& );
-/*  template<typename Type>
-    Matrix<complex<Type> > complexMatrix( const Matrix<Type>&,
-                                          const Matrix<Type>& );*/
-
-
-    #include "matrix_impl.h"
-
+	template<typename Type>
+    Matrix<complex<Type> > complexMatrix( const Matrix<Type>&, const Matrix<Type>& );
 }
 
 #endif
-// MATRIX_H
