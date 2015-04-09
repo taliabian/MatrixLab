@@ -2,7 +2,7 @@
 * \file  matrix.h
 * \brief Class template of matrix which is designed for basic linear algebra 
 * \author Talia
-* \version 1.0
+* \version 1.1
 * \date 2015-04-09 
 */
 

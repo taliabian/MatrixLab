@@ -2,7 +2,7 @@
 * \file matrix_impl.h
 * \brief Implementation for MatrixLab class
 * \author Talia
-* \version 1.0
+* \version 1.1
 * \date 2015-04-09 
 */
 

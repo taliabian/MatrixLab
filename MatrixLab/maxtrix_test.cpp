@@ -2,7 +2,7 @@
 * \file matrix_test.cpp
 * \brief MatrixLab class testing 
 * \author Talia
-* \version 1.0
+* \version 1.1
 * \date 2015-04-09 
 */
 
