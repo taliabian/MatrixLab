@@ -23,7 +23,7 @@ namespace matrixlab
     {
 
     public:
-		/// constructor
+		/// constructor and deconstructor
         Matrix();
         Matrix( const Matrix<Type> &A );
         Matrix( int rows, int columns, const Type &x = Type(0) );
@@ -50,6 +50,7 @@ namespace matrixlab
         vector<Type> getColumn( int column ) const;
 		void setRow( const vector<Type> &v, int row );
         void setColumn( const vector<Type> &v, int column );
+
 		// operator
         Matrix<Type>& operator+=( const Type& );
         Matrix<Type>& operator+=( const Matrix<Type>& );
@@ -76,7 +77,7 @@ namespace matrixlab
         void destroy();
 
     };
-	#include "matrix_impl.h"
+
 	// operator
     template<typename Type>
     ostream& operator<<( ostream&, const Matrix<Type>& );
@@ -113,6 +114,15 @@ namespace matrixlab
 	vector<Type> operator/( const vector<Type>&, const Type& );
     template<typename Type>
     Matrix<Type> operator/( const Type&, const Matrix<Type>& );
+
+	template<typename Type>
+	Matrix<Type> strcatMatrix( const Matrix<Type> &, const Matrix<Type> &);
+	template<typename Type>
+	Matrix<Type> strcatMatrix( const Matrix<Type> &, const vector<Type> &);
+	template<typename Type>
+	Matrix<Type> strcatMatrix( const vector<Type> &, const Matrix<Type> &);
+	template<typename Type>
+	Matrix<Type> strcatMatrix( const vector<Type> &, const vector<Type> &);
 
     template<typename Type>
     Matrix<Type>& optMult( const Matrix<Type>&, const Matrix<Type>&, Matrix<Type>& );
@@ -171,6 +181,8 @@ namespace matrixlab
     Matrix<complex<Type> > complexMatrix( const Matrix<Type>& );
 	template<typename Type>
     Matrix<complex<Type> > complexMatrix( const Matrix<Type>&, const Matrix<Type>& );
+
+	#include "matrix_impl.h"
 }
 
 #endif

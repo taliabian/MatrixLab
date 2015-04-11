@@ -137,6 +137,7 @@ inline Matrix<Type>& Matrix<Type>::operator=( const Type &x )
 	setByScalar( x );
 	return *this;
 }
+
 /// \brief 重载"[]",矩阵'0'基行数据访问. 
 /// \param x 行数
 /// \return 矩阵第i行的首地址
@@ -1186,4 +1187,64 @@ Matrix<Type> imag( const Matrix<complex<Type> > &A )
             tmp[i][j] = A[i][j].imag();
 
     return tmp;
+}
+
+template <typename Type>
+Matrix<Type> strcatMatrix( const Matrix<Type> &A1, const Matrix<Type> &A2)
+{
+	int rows = A1.rows();
+	int colums1 = A1.cols();
+	int colums = A1.cols() + A2.cols();
+	Matrix<Type> tmp( rows, colums );
+	for ( int i=0; i<rows; i++)
+		for (int j=0; j<colums; j++)
+			if ( j<colums1 )
+				 tmp[i][j] = A1[i][j];
+			else
+				tmp[i][j] = A2[i][j-colums1];
+	return tmp;
+}
+
+template <typename Type>
+Matrix<Type> strcatMatrix( const Matrix<Type> &A, const vector<Type> &v)
+{
+	int rows = A.rows();
+	int colums = A.cols() + 1;
+	Matrix<Type> tmp( rows, colums );
+	for ( int i=0; i<rows; i++)
+		for (int j=0; j<colums; j++)
+			if ( j<colums-1 )
+				tmp[i][j] = A[i][j];
+			else
+				tmp[i][j] = v[i];
+	return tmp;
+}
+
+template <typename Type>
+Matrix<Type> strcatMatrix( const vector<Type> &v, const Matrix<Type> &A)
+{
+	int rows = A.rows();
+	int colums = A.cols() + 1;
+	Matrix<Type> tmp( rows, colums );
+	for ( int i=0; i<rows; i++)
+		for (int j=0; j<colums; j++)
+			if ( j==0 )
+				tmp[i][j] = v[i];
+			else
+				tmp[i][j] = A[i][j-1];
+	return tmp;
+}
+
+template <typename Type>
+Matrix<Type> strcatMatrix( const vector<Type> &v1, const vector<Type> &v2)
+{
+	int rows = v1.size();
+	Matrix<Type> tmp( rows, 2 );
+	for ( int i=0; i<rows; i++)
+		for ( int j=0; j<2; j++)
+			if ( j==0 )
+				tmp[i][j] = v1[i];
+			else
+				tmp[i][j] = v2[i];
+	return tmp;
 }
