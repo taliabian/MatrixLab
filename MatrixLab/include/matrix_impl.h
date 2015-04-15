@@ -448,6 +448,14 @@ ostream& operator<<( ostream &out, const vector<Type> &v )
 	}
 	return out;
 }
+/// \brief 重载'<<', 输出Data_Pos各元素		 
+/// \param v 向量v
+template<typename Type>
+ostream& operator<<( ostream &out, const Data_Pos<Type> &d )
+{
+	out << "Data: " << d.Data << ", Pos: (" << d.row << ", " << d.col <<")";
+	return out;
+}
 /// \brief 重载'>>', 输入矩阵A各元素	 
 /// \param A 输入矩阵
 template <typename Type>
@@ -1121,9 +1129,9 @@ Matrix<complex<Type> > complexMatrix( const Matrix<Type> &mR,
 
     return cA;
 }
-/// \brief 复数矩阵的模矩阵
+/// \brief 矩阵的绝对值矩阵
 /// \param A 矩阵
-/// \return 实矩阵
+/// \return 矩阵
 template <typename Type>
 Matrix<Type> abs( const Matrix<complex<Type> > &A )
 {
@@ -1134,6 +1142,28 @@ Matrix<Type> abs( const Matrix<complex<Type> > &A )
     for( int i=0; i<m; ++i )
         for( int j=0; j<n; ++j )
             tmp[i][j] = abs( A[i][j] );
+
+    return tmp;
+}
+
+/// \brief 复数矩阵的模矩阵
+/// \param A 矩阵
+/// \return 实矩阵
+template <typename Type>
+Matrix<Type> abs( const Matrix<Type> &A )
+{
+    int m = A.rows(),
+        n = A.cols();
+    Matrix<Type> tmp( m, n );
+
+    for( int i=0; i<m; ++i )
+        for( int j=0; j<n; ++j )
+		{
+			if ( A[i][j] < 0)
+				tmp[i][j] = -A[i][j];
+			else
+				tmp[i][j] = A[i][j];
+		}
 
     return tmp;
 }
@@ -1246,5 +1276,89 @@ Matrix<Type> strcatMatrix( const vector<Type> &v1, const vector<Type> &v2)
 				tmp[i][j] = v1[i];
 			else
 				tmp[i][j] = v2[i];
+	return tmp;
+}
+/// \brief 矩阵的最大值和其位置
+/// \param A 矩阵
+/// \return Data_Pos数据和位置结构体
+template<typename Type> Data_Pos<Type> FindMaxandPos( const Matrix<Type> &A )
+{
+	int rows = A.rows();
+	int cols = A.cols();
+	Data_Pos<Type> tmp; 
+ 	tmp.Data = A[0][0];
+	tmp.row = 0;
+	tmp.col = 0;
+	for( int i=0; i<rows; i++)
+		for( int j=0; j<cols; j++)
+		{
+			if( A[i][j] >= tmp.Data)
+			{
+				tmp.Data = A[i][j];
+				tmp.row = i;
+				tmp.col = j;
+			}
+		}
+	return tmp;
+}
+/// \brief 矩阵的最小值和其位置
+/// \param A 矩阵
+/// \return Data_Pos数据和位置结构体
+template<typename Type> Data_Pos<Type> FindMinandPos( const Matrix<Type> &A )
+{
+	int rows = A.rows();
+	int cols = A.cols();
+	Data_Pos<Type> tmp; 
+ 	tmp.Data = A[0][0];
+	tmp.row = 0;
+	tmp.col = 0;
+	for( int i=0; i<rows; i++)
+		for( int j=0; j<cols; j++)
+		{
+			if( A[i][j] <= tmp.Data)
+			{
+				tmp.Data = A[i][j];
+				tmp.row = i;
+				tmp.col = j;
+			}
+		}
+	return tmp;
+}
+template<typename Type>
+Matrix<Type> ExchangeRows( Matrix<Type> &A, int row1, int row2 )
+{
+	Matrix<Type> tmp = A;
+	int cols = A.cols();
+	if( row1 != row2)
+	{
+		vector<Type> tmpv = A.getRow( row1 );
+		tmp.setRow( tmp.getRow(row2), row1) ;
+		tmp.setRow( tmpv, row2);
+	}
+	return tmp;
+}
+template<typename Type>
+Matrix<Type> ExchangeCols( Matrix<Type> &A, int col1, int col2 )
+{
+	Matrix<Type> tmp = A;
+	int rows = A.rows();
+	if( col1 != col2)
+	{
+		vector<Type> tmpv = A.getColumn( col1 );
+		tmp.setColumn( tmp.getColumn(col2), col1); 
+		tmp.setColumn( tmpv, col2);
+	}
+	return tmp;
+}
+
+template<typename Type>
+Matrix<Type> CopyFromMatrix( const Matrix<Type> &A, int row1, int col1, int row2, int col2 )
+{
+	int rows = row2-row1+1;
+	int cols = col2-col1+1;
+	Matrix<Type> tmp( rows, cols );
+	for( int i=0; i<rows; i++)
+		for(int j=0; j<cols; j++)
+			tmp[i][j] = A[row1+i][col1+j];
 	return tmp;
 }

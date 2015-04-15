@@ -19,6 +19,13 @@ namespace matrixlab
 {
 
     template <typename Type>
+	struct Data_Pos
+	{
+		Type Data;
+		int row;
+		int col;
+	};
+    template <typename Type>
     class Matrix
     {
 
@@ -83,6 +90,8 @@ namespace matrixlab
     ostream& operator<<( ostream&, const Matrix<Type>& );
 	template<typename Type>
 	ostream& operator<<( ostream&, const vector<Type>& );
+	template<typename Type>
+	ostream& operator<<( ostream&, const Data_Pos<Type>& );
     template<typename Type>
     istream& operator>>( istream&, Matrix<Type>& );
 
@@ -123,6 +132,12 @@ namespace matrixlab
 	Matrix<Type> strcatMatrix( const vector<Type> &, const Matrix<Type> &);
 	template<typename Type>
 	Matrix<Type> strcatMatrix( const vector<Type> &, const vector<Type> &);
+	template<typename Type>
+	Matrix<Type> ExchangeRows( Matrix<Type> &, int, int );
+	template<typename Type>
+	Matrix<Type> ExchangeCols( Matrix<Type> &, int, int );
+	template<typename Type>
+	Matrix<Type> CopyFromMatrix( const Matrix<Type> &A, int row1, int col1, int row2, int col2 );
 
     template<typename Type>
     Matrix<Type>& optMult( const Matrix<Type>&, const Matrix<Type>&, Matrix<Type>& );
@@ -173,6 +188,9 @@ namespace matrixlab
     template<typename Type> vector<Type> min( const Matrix<Type>& );
     template<typename Type> vector<Type> max( const Matrix<Type>& );
     template<typename Type> vector<Type> mean( const Matrix<Type>& );
+	template<typename Type> Data_Pos<Type> FindMaxandPos( const Matrix<Type>& );
+	template<typename Type> Data_Pos<Type> FindMinandPos( const Matrix<Type> & );
+	template<typename Type> Matrix<Type> abs( const Matrix<Type>& );
     template<typename Type> Matrix<Type> abs( const Matrix<complex<Type> >& );
     template<typename Type> Matrix<Type> arg( const Matrix<complex<Type> >& );
     template<typename Type> Matrix<Type> real( const Matrix<complex<Type> >& );
